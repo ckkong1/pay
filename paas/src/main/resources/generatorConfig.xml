@@ -75,7 +75,7 @@
         <!--<table tableName="question" domainObjectName="Question" enableCountByExample="true" enableUpdateByExample="true"-->
                <!--enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"/>-->
 
-        <table tableName="users" domainObjectName="User" enableCountByExample="true"
+        <table tableName="task" domainObjectName="Task" enableCountByExample="true"
                enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true"/>
 
