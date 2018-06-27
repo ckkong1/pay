@@ -1,6 +1,7 @@
 package com.pay.paas.common.advice;
 
 import com.pay.paas.common.bean.ResultBean;
+import com.pay.paas.common.enums.ResponseCodeEnum;
 import com.pay.paas.common.exception.CheckException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -27,9 +28,9 @@ public class ControllerAdvice {
             // 无异常 记录日志并返回结果集
             result = (ResultBean<?>) pjp.proceed();
             logger.info(pjp.getSignature() + "use time :" + (System.currentTimeMillis() - startTime));
-        } catch (Throwable throwable) {
+        } catch (Throwable e) {
             // 捕获到异常则调用异常处理方法
-            result = handlerException(pjp,throwable);
+            result = handlerException(pjp,e);
         }
         return result;
     }
@@ -39,13 +40,12 @@ public class ControllerAdvice {
 
         if (e instanceof CheckException) { // 已知异常处理方法
             result.setMsg(e.getLocalizedMessage());
-            result.setCode(1) ;// todo create msgEnum
-        }else { // todo 使用状态模式改造
-
-            // todo 未知异常处理
+            result.setCode(((CheckException) e).getCode()) ;
+        }else {
+            // todo 未知异常需要通过外部手段告知开发
             logger.error(pjp.getSignature() + "error",e);
             result.setMsg(e.toString());
-            result.setCode(2);// todo
+            result.setCode(ResponseCodeEnum.UNKNOWN_ERROR.getCode());
         }
         return result;
     }

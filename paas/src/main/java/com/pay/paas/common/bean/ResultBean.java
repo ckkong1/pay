@@ -1,7 +1,10 @@
 package com.pay.paas.common.bean;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.io.Serializable;
 
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ResultBean<T> implements Serializable{
     private int code;
     private String msg;
@@ -9,10 +12,6 @@ public class ResultBean<T> implements Serializable{
 
     public ResultBean() {
         super();
-    }
-
-    public ResultBean(int code) {
-        this.code = code;
     }
 
     public ResultBean(int code, String msg) {
@@ -26,10 +25,6 @@ public class ResultBean<T> implements Serializable{
         this.data = data;
     }
 
-    public ResultBean(int code,T data) {
-        this.code = code;
-        this.data = data;
-    }
 
 
     public int getCode() {
